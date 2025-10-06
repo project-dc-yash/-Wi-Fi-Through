@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Reports | Wi-Fi Through-Wall Human Detection</title>
+  <link rel="stylesheet" href="reports.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+  <style>
+    /* Reset and Basics */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  body {
+    background-color: #f5f7fa;
+    color: #333;
+  }
+  
+  /* Navbar */
+  .navbar {
+    background-color: #0a3d62;
+    color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 14px 40px;
+  }
+  
+  .navbar .logo {
+    font-weight: bold;
+    font-size: 18px;
+  }
+  
+  .navbar .menu {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+  }
+  
+  .navbar .menu li a {
+    color: white;
+    text-decoration: none;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+  
+  .navbar .menu li a:hover,
+  .navbar .menu li a.active {
+    color: #00a8ff;
+  }
+  
+  /* Page Header */
+  .page-header {
+    text-align: center;
+    padding: 40px 20px 20px;
+  }
+  
+  .page-header h1 {
+    font-size: 28px;
+    color: #0a3d62;
+  }
+  
+  .page-header p {
+    font-size: 15px;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  /* Charts Section */
+  .charts-section {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 20px;
+    padding: 30px 50px;
+  }
+  
+  .chart-card {
+    background: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .chart-card h2 {
+    margin-bottom: 15px;
+    font-size: 18px;
+    color: #0a3d62;
+  }
+  
+  /* Log Table Section */
+  .log-section {
+    padding: 30px 50px;
+  }
+  
+  .log-section h2 {
+    font-size: 20px;
+    color: #0a3d62;
+    margin-bottom: 15px;
+  }
+  
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 3px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  table th, table td {
+    padding: 12px 16px;
+    text-align: center;
+    border-bottom: 1px solid #eee;
+  }
+  
+  table th {
+    background-color: #0a3d62;
+    color: white;
+    font-weight: 500;
+  }
+  
+  table tr:hover {
+    background-color: #f1f1f1;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #0a3d62;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    font-size: 14px;
+    margin-top: 30px;
+  }
+  
+</style>
+
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Wi-Fi Human Detection</div>
+    <ul class="menu">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="reports.html" class="active">Reports</a></li>
+      <li><a href="#">Settings</a></li>
+    </ul>
+  </nav>
+
+  <!-- Page Title -->
+  <header class="page-header">
+    <h1>Detection Reports</h1>
+    <p>Detailed analytics of human detection events recorded via Raspberry Pi</p>
+  </header>
+
+  <!-- Charts Section -->
+  <section class="charts-section">
+    <div class="chart-card">
+      <h2>Signal Strength Over Time</h2>
+      <canvas id="signalChart"></canvas>
+    </div>
+    <div class="chart-card">
+      <h2>Human Detection Frequency</h2>
+      <canvas id="detectionChart"></canvas>
+    </div>
+  </section>
+
+  <!-- Detection Log Table -->
+  <section class="log-section">
+    <h2>Detection Log Data</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Time</th>
+          <th>Status</th>
+          <th>Signal Strength</th>
+          <th>Device ID</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>10:15 AM</td>
+          <td>Human Detected</td>
+          <td>82%</td>
+          <td>RPi-01</td>
+        </tr>
+        <tr>
+          <td>10:45 AM</td>
+          <td>No Human</td>
+          <td>65%</td>
+          <td>RPi-01</td>
+        </tr>
+        <tr>
+          <td>11:10 AM</td>
+          <td>Human Detected</td>
+          <td>90%</td>
+          <td>RPi-02</td>
+        </tr>
+        <tr>
+          <td>11:35 AM</td>
+          <td>No Human</td>
+          <td>70%</td>
+          <td>RPi-01</td>
+        </tr>
+        <tr>
+          <td>12:00 PM</td>
+          <td>Human Detected</td>
+          <td>85%</td>
+          <td>RPi-02</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Wi-Fi Human Detection System | Powered by Raspberry Pi</p>
+  </footer>
+
+  <!-- Chart Scripts -->
+  <script>
+    // Signal Strength Chart
+    const ctx1 = document.getElementById('signalChart');
+    new Chart(ctx1, {
+      type: 'line',
+      data: {
+        labels: ['10:00 AM', '10:30 AM', '11:00 AM', '11:30 AM', '12:00 PM'],
+        datasets: [{
+          label: 'Signal Strength (%)',
+          data: [60, 70, 85, 75, 90],
+          borderWidth: 2,
+          borderColor: '#27ae60',
+          fill: true,
+          backgroundColor: 'rgba(39, 174, 96, 0.2)',
+          tension: 0.3
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true, max: 100 }
+        }
+      }
+    });
+
+    // Detection Frequency Chart
+    const ctx2 = document.getElementById('detectionChart');
+    new Chart(ctx2, {
+      type: 'bar',
+      data: {
+        labels: ['RPi-01', 'RPi-02', 'RPi-03'],
+        datasets: [{
+          label: 'Detections Count',
+          data: [3, 5, 2],
+          backgroundColor: ['#3498db', '#e67e22', '#9b59b6']
+        }]
+      },
+      options: {
+        responsive: true,
+        scales: {
+          y: { beginAtZero: true }
+        }
+      }
+    });
+  </script>
+
+</body>
+</html>

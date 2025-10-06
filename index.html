@@ -1,0 +1,213 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Wi-Fi Through-Wall Human Detection Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  
+   
+        <style>
+/* General Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* Body Styling */
+  body {
+    background-color: #f3f4f6;
+    color: #333;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0a3d62;
+    color: white;
+    padding: 12px 40px;
+  }
+  
+  .navbar .logo {
+    font-size: 20px;
+    font-weight: bold;
+  }
+  
+  .navbar .menu {
+    list-style: none;
+    display: flex;
+    gap: 20px;
+  }
+  
+  .navbar .menu li a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: color 0.3s ease;
+  }
+  
+  .navbar .menu li a:hover {
+    color: #00a8ff;
+  }
+  
+  /* Container */
+  .container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 20px;
+    padding: 40px;
+  }
+  
+  /* Card Style */
+  .card {
+    background-color: white;
+    padding: 25px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    transition: transform 0.2s ease-in-out;
+  }
+  
+  .card:hover {
+    transform: translateY(-5px);
+  }
+  
+  /* Status Indicator */
+  .indicator {
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    margin: 10px auto;
+  }
+  
+  .red {
+    background-color: red;
+  }
+  
+  .green {
+    background-color: green;
+  }
+  
+  /* Signal Bar */
+  .bar-container {
+    background-color: #eee;
+    height: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+  }
+  
+  .bar {
+    background-color: #27ae60;
+    height: 10px;
+    border-radius: 5px;
+  }
+  
+  /* Table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+  }
+  
+  table, th, td {
+    border: 1px solid #ddd;
+  }
+  
+  th, td {
+    padding: 10px;
+    font-size: 14px;
+  }
+  
+  th {
+    background-color: #0a3d62;
+    color: white;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #0a3d62;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    margin-top: 30px;
+    font-size: 14px;
+  }
+  
+  .online {
+    color: #27ae60;
+    font-weight: bold;
+  }
+  
+        </style>
+</head>
+<body>
+  <nav class="navbar">
+    <div class="logo">Wi-Fi Human Detection</div>
+    <ul class="menu">
+      <li><a href="#">Dashboard</a></li>
+      <li><a href="Reports.html">Reports</a></li>
+      <li><a href="Settings.html">Settings</a></li>
+    </ul>
+  </nav>
+
+  <div class="container">
+    <div class="card status">
+      <h2>Detection Status</h2>
+      <p id="status-text">No Human Detected</p>
+      <div class="indicator red"></div>
+    </div>
+
+    <div class="card signal">
+      <h2>Wi-Fi Signal Strength</h2>
+      <div class="bar-container">
+        <div class="bar" style="width: 60%"></div>
+      </div>
+      <p>Signal Strength: <span id="signal-value">60%</span></p>
+    </div>
+
+    <div class="card device">
+      <h2>Raspberry Pi Connection</h2>
+      <p>Device: Raspberry Pi 4</p>
+      <p>Status: <span class="online">Online</span></p>
+    </div>
+
+    <div class="card data">
+      <h2>Detection Log</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Time</th>
+            <th>Status</th>
+            <th>Signal Strength</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>12:30 PM</td>
+            <td>Human Detected</td>
+            <td>78%</td>
+          </tr>
+          <tr>
+            <td>12:45 PM</td>
+            <td>No Human</td>
+            <td>64%</td>
+          </tr>
+          <tr>
+            <td>1:00 PM</td>
+            <td>Human Detected</td>
+            <td>82%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <footer>
+    <p>© 2025 Wi-Fi Human Detection System | Raspberry Pi Based</p>
+  </footer>
+</body>
+</html>

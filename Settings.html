@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Settings | Wi-Fi Through-Wall Human Detection</title>
+  <link rel="stylesheet" href="settings.css">
+
+  <style>
+    /* Reset */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+  
+  /* Body */
+  body {
+    background-color: #f5f7fa;
+    color: #333;
+    transition: background 0.3s ease, color 0.3s ease;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #0a3d62;
+    color: white;
+    padding: 14px 40px;
+  }
+  
+  .navbar .logo {
+    font-size: 18px;
+    font-weight: bold;
+  }
+  
+  .navbar .menu {
+    display: flex;
+    gap: 20px;
+    list-style: none;
+  }
+  
+  .navbar .menu li a {
+    text-decoration: none;
+    color: white;
+    font-size: 14px;
+    transition: color 0.3s;
+  }
+  
+  .navbar .menu li a:hover,
+  .navbar .menu li a.active {
+    color: #00a8ff;
+  }
+  
+  /* Header */
+  .settings-header {
+    text-align: center;
+    padding: 40px 20px 10px;
+  }
+  
+  .settings-header h1 {
+    font-size: 28px;
+    color: #0a3d62;
+  }
+  
+  .settings-header p {
+    color: #666;
+    font-size: 15px;
+    margin-top: 8px;
+  }
+  
+  /* Container */
+  .settings-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    padding: 30px 50px;
+  }
+  
+  /* Card Style */
+  .settings-card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+  
+  .settings-card h2 {
+    color: #0a3d62;
+    font-size: 20px;
+    margin-bottom: 15px;
+    text-align: center;
+  }
+  
+  .settings-card form {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .settings-card label {
+    font-size: 14px;
+    margin: 10px 0 5px;
+    color: #444;
+  }
+  
+  .settings-card input[type="text"],
+  .settings-card input[type="password"] {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+  }
+  
+  .settings-card input[type="text"]:focus,
+  .settings-card input[type="password"]:focus {
+    border-color: #0a3d62;
+  }
+  
+  /* Range and Value */
+  .settings-card input[type="range"] {
+    margin-top: 10px;
+    accent-color: #0a3d62;
+  }
+  
+  .range-value {
+    font-size: 13px;
+    color: #555;
+    margin-top: 5px;
+  }
+  
+  /* Checkboxes */
+  .settings-card input[type="checkbox"] {
+    margin-right: 8px;
+  }
+  
+  /* Buttons */
+  .settings-card button {
+    background-color: #0a3d62;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 6px;
+    margin-top: 15px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.3s;
+  }
+  
+  .settings-card button:hover {
+    background-color: #1e5799;
+  }
+  
+  /* Theme Section */
+  .theme-toggle {
+    text-align: center;
+    margin-top: 10px;
+  }
+  
+  .theme-btn {
+    background-color: #eee;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px 8px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  
+  .theme-btn.active {
+    background-color: #0a3d62;
+    color: white;
+  }
+  
+  .theme-btn:hover {
+    background-color: #00a8ff;
+    color: white;
+  }
+  
+  /* Footer */
+  footer {
+    background-color: #0a3d62;
+    color: white;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 14px;
+    margin-top: 40px;
+  }
+  
+  /* Dark Mode */
+  .dark-mode {
+    background-color: #1e272e;
+    color: white;
+  }
+  
+  .dark-mode .settings-card {
+    background-color: #2f3640;
+    color: white;
+  }
+  
+  .dark-mode .navbar {
+    background-color: #2d3436;
+  }
+  
+  .dark-mode .settings-card button {
+    background-color: #0097e6;
+  }
+s  
+  </style>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="logo">Wi-Fi Human Detection</div>
+    <ul class="menu">
+      <li><a href="dashboard.html">Dashboard</a></li>
+      <li><a href="reports.html">Reports</a></li>
+      <li><a href="settings.html" class="active">Settings</a></li>
+    </ul>
+  </nav>
+
+  <!-- Settings Header -->
+  <header class="settings-header">
+    <h1>System Settings</h1>
+    <p>Configure your Raspberry Pi Wi-Fi detection system preferences</p>
+  </header>
+
+  <!-- Settings Container -->
+  <div class="settings-container">
+
+    <!-- Section 1: Wi-Fi Configuration -->
+    <div class="settings-card">
+      <h2>Wi-Fi Configuration</h2>
+      <form>
+        <label>Wi-Fi SSID</label>
+        <input type="text" placeholder="Enter Network SSID">
+
+        <label>Password</label>
+        <input type="password" placeholder="Enter Wi-Fi Password">
+
+        <button type="submit">Save Wi-Fi Settings</button>
+      </form>
+    </div>
+
+    <!-- Section 2: Device Setup -->
+    <div class="settings-card">
+      <h2>Device Setup</h2>
+      <form>
+        <label>Device Name</label>
+        <input type="text" placeholder="Raspberry Pi 4">
+
+        <label>Device ID</label>
+        <input type="text" placeholder="RPi-01">
+
+        <label>Detection Sensitivity</label>
+        <input type="range" min="1" max="10" value="5">
+        <p class="range-value">Current: <span id="sensitivityValue">5</span></p>
+
+        <button type="submit">Update Device Settings</button>
+      </form>
+    </div>
+
+    <!-- Section 3: Alert Notifications -->
+    <div class="settings-card">
+      <h2>Alert Notifications</h2>
+      <form>
+        <label><input type="checkbox" checked> Enable Human Detection Alerts</label>
+        <label><input type="checkbox"> Send Alerts to Mobile via SMS</label>
+        <label><input type="checkbox" checked> Email Notifications</label>
+
+        <button type="submit">Save Alert Preferences</button>
+      </form>
+    </div>
+
+    <!-- Section 4: Theme Mode -->
+    <div class="settings-card">
+      <h2>Theme Settings</h2>
+      <div class="theme-toggle">
+        <p>Choose Theme Mode:</p>
+        <button id="lightBtn" class="theme-btn active">Light</button>
+        <button id="darkBtn" class="theme-btn">Dark</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p>© 2025 Wi-Fi Human Detection System | Developed using Raspberry Pi</p>
+  </footer>
+
+  <!-- JS for interactivity -->
+  <script>
+    // Sensitivity range value display
+    const rangeInput = document.querySelector('input[type="range"]');
+    const rangeValue = document.getElementById('sensitivityValue');
+    rangeInput.addEventListener('input', () => {
+      rangeValue.textContent = rangeInput.value;
+    });
+
+    // Theme toggle
+    const lightBtn = document.getElementById('lightBtn');
+    const darkBtn = document.getElementById('darkBtn');
+
+    lightBtn.addEventListener('click', () => {
+      document.body.classList.remove('dark-mode');
+      lightBtn.classList.add('active');
+      darkBtn.classList.remove('active');
+    });
+
+    darkBtn.addEventListener('click', () => {
+      document.body.classList.add('dark-mode');
+      darkBtn.classList.add('active');
+      lightBtn.classList.remove('active');
+    });
+  </script>
+
+</body>
+</html>
